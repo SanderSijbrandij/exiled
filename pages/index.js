@@ -12,9 +12,8 @@ export default (props) => (
       <div className='content-aside'>
         <h3>About me</h3>
         <img src="http://placehold.it/150x150?text=me" />
-        <p>I am super awesome and cool</p>
-        <p>My webdeveloper is the best developer ever.</p>
-        <p>I am super awesome and cool</p>
+        <p><strong>some tagline</strong></p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur eveniet eius nihil possimus officia eos quasi repellendus quia magni assumenda, unde voluptatum qui dolore, beatae reprehenderit explicabo earum repudiandae. Dicta.</p>
       </div>
   </Layout>
 )
