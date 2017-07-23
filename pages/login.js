@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import store from '../store'
 import signIn from '../actions/sign-in'
+import Layout from '../layouts/default'
 
 class SignIn extends Component {
   handleSubmit() {
@@ -11,16 +12,16 @@ class SignIn extends Component {
   }
 
   render() {
-    if (this.props.user) { return <div>You are already logged in</div> }
+    if (this.props.user) { return <Layout>You are already logged in dummy.</Layout> }
     return (
-      <div>
+      <Layout path={this.props.url.pathname}>
         <h1>Sign in</h1>
         <input type="text" ref={c => this.email = c} placeholder="email" />
         <br />
         <input type="password" ref={c => this.password = c} placeholder="password" />
         <br />
         <button onClick={() => this.handleSubmit()}>Click me</button>
-      </div>
+      </Layout>
     )
   }
 }

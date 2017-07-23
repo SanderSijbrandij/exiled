@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import Layout from '../layouts/default'
 
+import withRedux from 'next-redux-wrapper'
+import store from '../store'
+
 import createVideo from '../actions/create-video'
 import getVideos from '../actions/get-videos'
 
-export default class VideoPage extends Component {
+class VideoPage extends Component {
   static async getInitialProps() {
     const videos = await getVideos()
     return { videos }
@@ -32,7 +35,7 @@ export default class VideoPage extends Component {
   }
 
   render() {
-    const { videos } = this.props
+    const { videos, user } = this.props
 
     return (
       <Layout path={this.props.url.pathname}>
@@ -41,7 +44,7 @@ export default class VideoPage extends Component {
           {!videos && <strong>No videos found</strong>}
           {videos && this.renderPlayList()}
         </div>
-        { this.props.user && 
+        {user && 
         <div className="content-aside">
           <h3>add one</h3>
           <label htmlFor="title">Title</label>
@@ -57,3 +60,7 @@ export default class VideoPage extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ user }) => ({ user })
+const mapDispatchToProps = { }
+export default withRedux(store, mapStateToProps, mapDispatchToProps)(VideoPage)
