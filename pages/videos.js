@@ -2,19 +2,44 @@ import React, { Component } from 'react'
 import Layout from '../layouts/default'
 
 import createVideo from '../lib/create-video'
+import getVideos from '../lib/get-videos'
 
 export default class VideoPage extends Component {
+  static async getInitialProps() {
+    const videos = await getVideos()
+    return { videos }
+  }
+
   async handleSubmit() {
     const { title, url } = this
     createVideo(title.value, url.value)
   }
 
+  renderPlayList() {
+    const { videos } = this.props
+    const keys = Object.keys(videos)
+    const values = Object.values(videos)
+    
+    return (
+      <ul>
+        {keys.map((key, index) => this.renderVideo(key, values[index]))}
+      </ul>
+    )
+  }
+
+  renderVideo(id, video) {
+    return <li key={id}>{video.title} - {video.url}</li>
+  }
+
   render() {
+    const { videos } = this.props
+
     return (
       <Layout path={this.props.url.pathname}>
         <div className="content-text">
           <h1>Videos</h1>
-          Working on teh firebase!
+          {!videos && <strong>No videos found</strong>}
+          {videos && this.renderPlayList()}
         </div>
         <div className="content-aside">
           <h3>add one</h3>
