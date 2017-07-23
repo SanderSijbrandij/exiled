@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
 import stylesheet from '../styles/index.scss'
-import Navigation from '../components/Navigation'
-
+import withRedux from 'next-redux-wrapper'
 import firebase from 'firebase'
 import initFirebase from '../lib/firebase'
+import store from '../store'
+
+import Navigation from '../components/Navigation'
+import setUser from '../actions/set-user'
 
 const Header = ({ path }) => (
   <header>
@@ -22,7 +25,7 @@ const Footer = () => (
   </footer>
 )
 
-export default class Layout extends Component {
+class Layout extends Component {
   constructor() {
     super()
     initFirebase()
@@ -30,11 +33,10 @@ export default class Layout extends Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        // we have a user!
-        console.log('youre logged in')
-      } else {
-        console.log('youre not logged in')
+      if (user && !this.props.user) {
+        this.props.setUser(true)
+      } else if (!user && this.props.user) {
+        this.props.setUser(false)
       }
     })
   }
@@ -52,3 +54,7 @@ export default class Layout extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ user }) => ({ user })
+const mapDispatchToProps = { setUser }
+export default withRedux(store, mapStateToProps, mapDispatchToProps)(Layout)
