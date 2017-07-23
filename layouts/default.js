@@ -28,6 +28,17 @@ export default class Layout extends Component {
     initFirebase()
   }
 
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // we have a user!
+        console.log('youre logged in')
+      } else {
+        console.log('youre not logged in')
+      }
+    })
+  }
+
   render() {
     const { path, children } = this.props
     return (
