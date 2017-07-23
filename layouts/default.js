@@ -1,30 +1,9 @@
+import React, { Component } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
+
 import stylesheet from '../styles/index.scss'
+import Navigation from '../components/Navigation'
 
-
-
-const Navigation = ({ path }) => {
-  const routes = [
-    { href: '/', text: 'Home' },
-    { href: '/videos', text: 'Videos' }
-  ]
-
-  return (
-    <nav>
-      <Link href="/"><strong>Exiled</strong></Link>
-      { routes.map(route => {
-          const classes = route.href === path ? 'current-path' : ''
-          return (
-            <Link key={route.href} href={route.href}>
-              <li className={classes}>{route.text}</li>
-            </Link>
-          )
-        })
-      }
-    </nav>
-  )
-}
 
 const Header = ({ path }) => (
   <header>
@@ -38,16 +17,21 @@ const Header = ({ path }) => (
 
 const Footer = () => (
   <footer>
-    <span>Created using nextJS</span>
+    <span>Created using nextJS & Firebase</span>
   </footer>
 )
 
-export default ({ path, children }) => (
-  <div className='content'>
-    <Header path={path} />
-    <main>
-      { children }
-    </main>
-    <Footer />
-  </div>
-)
+export default class Layout extends Component {
+  render() {
+    const { path, children } = this.props
+    return (
+      <div className='content'>
+        <Header path={path} />
+        <main>
+          { children }
+        </main>
+        <Footer />
+      </div>
+    )
+  }
+}

@@ -41,6 +41,7 @@ export default class VideoPage extends Component {
           {!videos && <strong>No videos found</strong>}
           {videos && this.renderPlayList()}
         </div>
+        { this.props.user && 
         <div className="content-aside">
           <h3>add one</h3>
           <label htmlFor="title">Title</label>
@@ -51,6 +52,7 @@ export default class VideoPage extends Component {
           <br />
           <button onClick={() => this.handleSubmit()}>Create</button>
         </div>
+        }
       </Layout>
     )
   }
