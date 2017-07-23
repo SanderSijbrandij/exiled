@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Layout from '../layouts/default'
 
-import createVideo from '../lib/create-video'
-import getVideos from '../lib/get-videos'
+import createVideo from '../actions/create-video'
+import getVideos from '../actions/get-videos'
 
 export default class VideoPage extends Component {
   static async getInitialProps() {

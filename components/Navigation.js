@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
 import withRedux from 'next-redux-wrapper'
-import { initStore } from '../store'
+import store from '../store'
 
 class Navigation extends Component {
   routes() {
@@ -31,7 +31,5 @@ class Navigation extends Component {
   }
 }
 
-
 const mapStateToProps = ({ user }) => ({ user })
-const mapDispatchToProps = { }
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Navigation)
+export default withRedux(store, mapStateToProps)(Navigation)

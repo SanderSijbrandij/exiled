@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
-
 import stylesheet from '../styles/index.scss'
 import Navigation from '../components/Navigation'
 
+import firebase from 'firebase'
+import initFirebase from '../lib/firebase'
 
 const Header = ({ path }) => (
   <header>
@@ -22,6 +23,11 @@ const Footer = () => (
 )
 
 export default class Layout extends Component {
+  constructor() {
+    super()
+    initFirebase()
+  }
+
   render() {
     const { path, children } = this.props
     return (

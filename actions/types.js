@@ -1,0 +1,4 @@
+export default {
+  USER_SIGNED_IN: 'USER // SIGNED-IN',
+  USER_SIGNED_OUT: 'USER // SIGNED-OUT'
+}
