@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
-import withRedux from 'next-redux-wrapper'
+import { connect } from 'react-redux'
 import store from '../store'
+
+import signOut from '../actions/sign-out'
 
 class Navigation extends Component {
   routes() {
@@ -10,6 +12,8 @@ class Navigation extends Component {
       { href: '/videos', text: 'Videos' }
     ]
   } 
+
+  signOut() { this.props.signOut() }
 
   render() {
     const { path, user } = this.props
@@ -25,11 +29,12 @@ class Navigation extends Component {
             )
           })
         }
-        {user && 'You are logged in' }
+        {user && <a onClick={() => this.signOut()}>sign out</a> }
       </nav>
     )
   }
 }
 
 const mapStateToProps = ({ user }) => ({ user })
-export default withRedux(store, mapStateToProps)(Navigation)
+const mapDispatchToProps = { signOut }
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

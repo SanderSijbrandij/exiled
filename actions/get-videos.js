@@ -4,7 +4,7 @@ import initFirebase from '../lib/firebase'
 
 export default () => {
   return async dispatch => {
-    initFirebase()
+    initFirebase() // all firebase actions in getInitialProps need to init firebase
     const db = firebase.database()
     const videosRef = db.ref('videos')
     
