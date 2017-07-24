@@ -27,17 +27,14 @@ class VideoPage extends Component {
   renderPlayList() {
     const { videos } = this.props
     const keys = Object.keys(videos)
-    const values = Object.values(videos)
     
     return (
       <ul>
-        {keys.map((key, index) => this.renderVideo(key, values[index]))}
+        {keys.map(key =>
+          <li key={key}>{videos[key].title}</li>
+        )}
       </ul>
     )
-  }
-
-  renderVideo(id, video) {
-    return <li key={id}>{video.title} - {video.url}</li>
   }
 
   render() {
@@ -67,6 +64,6 @@ class VideoPage extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({ user })
+const mapStateToProps = ({ user, videos }) => ({ user, videos })
 const mapDispatchToProps = { getVideos, createVideo }
 export default withRedux(store, mapStateToProps, mapDispatchToProps)(VideoPage)

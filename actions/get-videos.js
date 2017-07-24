@@ -9,10 +9,18 @@ export default () => {
     const videosRef = db.ref('videos')
     
     const videos = await videosRef.once('value')
+    const keys = Object.keys(videos.val())
+    const values = Object.values(videos.val())
+    
+    const payload = {}
+
+    keys.map((key, index) => {
+      payload[key] = values[index]
+    })
 
     dispatch({
       type: types.VIDEOS_FETCHED,
-      payload: videos.val()
+      payload
     })
   }
 }

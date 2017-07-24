@@ -1,22 +1,19 @@
 import types from '../actions/types'
 
-export default (state = [], { type, payload } = {}) => {
-  switch(type) {
+export default (state = null, action = {}) => {
+  switch(action.type) {
     case types.VIDEOS_FETCHED:
-      return [].concat(payload)
+      return Object.assign({}, action.payload)
 
     case types.VIDEO_CREATED:
-      return [].concat(payload).concat(state)
+      return Object.assign({}, state, payload)
 
     case types.VIDEO_UPDATED:
-      return state.map(video => {
-        return video.id === payload.id ? payload : video
-      })
+      return Object.assign({}, state, payload)
 
     case types.VIDEO_DELETED:
-      return state.filter(video => {
-        return video.id !== payload.id
-      })
+      const { payload, ...rest } = state
+      return Object.assign({}, rest)
 
     default:
     return state
