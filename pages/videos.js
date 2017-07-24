@@ -8,14 +8,20 @@ import createVideo from '../actions/create-video'
 import getVideos from '../actions/get-videos'
 
 class VideoPage extends Component {
-  static async getInitialProps() {
-    const videos = await getVideos()
-    return { videos }
+  static async getInitialProps({ store, isServer, pathname, query }) {
+    const action = getVideos()
+    
+    await store.dispatch(action)
+    
+    const payload = await action.payload
+    return { videos: payload }
   }
 
   async handleSubmit() {
-    const { title, url } = this
-    createVideo(title.value, url.value)
+    const title = this.title.value
+    const url = this.url.value
+
+    this.props.createVideo({ title, url })
   }
 
   renderPlayList() {
@@ -62,5 +68,5 @@ class VideoPage extends Component {
 }
 
 const mapStateToProps = ({ user }) => ({ user })
-const mapDispatchToProps = { }
+const mapDispatchToProps = { getVideos, createVideo }
 export default withRedux(store, mapStateToProps, mapDispatchToProps)(VideoPage)

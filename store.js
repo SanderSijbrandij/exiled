@@ -11,9 +11,10 @@ const initialState = {
 
 let enhancer = applyMiddleware(thunkMiddleware)
 if (typeof window !== 'undefined') {
+  const devTools = window.devToolsExtension ? window.devToolsExtension() : (f) => f
   enhancer = compose(
     applyMiddleware(thunkMiddleware),
-    (window.devToolsExtension ? window.devToolsExtension() : (f) => f)
+    devTools
   )
 }
 
