@@ -1,5 +1,10 @@
 import firebase from 'firebase'
+import types from './types'
 
-export const signOut = async () => {
-  const response = firebase.auth().signOut()
+export default () => {
+  firebase.auth().signOut()
+  return {
+    type: types.USER_STATUS_CHANGED,
+    payload: false
+  }
 }

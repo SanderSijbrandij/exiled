@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
-import { connect } from 'react-redux'
+import withRedux from 'next-redux-wrapper'
 import store from '../store'
 
 import signOut from '../actions/sign-out'
@@ -29,7 +29,7 @@ class Navigation extends Component {
             )
           })
         }
-        {user && <a onClick={() => this.signOut()}>sign out</a> }
+        {user && <button onClick={() => this.signOut()}>sign out</button> }
       </nav>
     )
   }
@@ -37,4 +37,4 @@ class Navigation extends Component {
 
 const mapStateToProps = ({ user }) => ({ user })
 const mapDispatchToProps = { signOut }
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
+export default withRedux(store, mapStateToProps, mapDispatchToProps)(Navigation)

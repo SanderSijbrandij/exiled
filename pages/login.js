@@ -8,7 +8,7 @@ class SignIn extends Component {
   handleSubmit() {
     const email = this.email.value
     const password = this.password.value
-    signIn(email, password)    
+    this.props.signIn(email, password)    
   }
 
   render() {
